@@ -449,33 +449,18 @@ joystickArea.addEventListener("pointercancel", event => {
     }
 });
 
-/* =========================================
-   RUN BUTTON
-========================================= */
-
-runButton.addEventListener("pointerdown", event => {
-
+runButton.addEventListener("pointerdown", (event) => {
     event.preventDefault();
-
-    if (runPointer !== null) return;
-
-    runPointer = event.pointerId;
-
-    runButton.setPointerCapture(event.pointerId);
-
     running = true;
 });
 
-function stopRunning(event) {
-
-    if (runPointer !== event.pointerId) return;
-
+window.addEventListener("pointerup", () => {
     running = false;
-    runPointer = null;
-}
+});
 
-runButton.addEventListener("pointerup", stopRunning);
-runButton.addEventListener("pointercancel", stopRunning);
+window.addEventListener("pointercancel", () => {
+    running = false;
+});
 
 /* =========================================
    THIRD-PERSON CAMERA
@@ -638,7 +623,7 @@ function updatePlayer(delta) {
     direction.set(0, 0, 0);
 
     direction.addScaledVector(right, inputX);
-    direction.addScaledVector(forward, -inputY);
+   direction.addScaledVector(forward, inputY);
 
     const moving = direction.lengthSq() > 0.001;
 
