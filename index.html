@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#171a1d">
+
+    <title>Prison Escape</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="game-container"></div>
+
+    <div id="loading-screen">
+        <h1>PRISON ESCAPE</h1>
+        <p>Preparing the environment...</p>
+    </div>
+
+    <div id="game-ui">
+        <div id="top-bar">
+            <div class="game-title">PRISON ESCAPE</div>
+            <div id="status">PROTOTYPE 01</div>
+        </div>
+
+        <div id="controls">
+            <div id="joystick-area">
+                <div id="joystick">
+                    <div id="joystick-knob"></div>
+                </div>
+            </div>
+
+            <div id="action-buttons">
+                <button id="run-button" type="button">RUN</button>
+                <button id="camera-button" type="button">RESET CAM</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+</body>
+</html>
