@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#171a1d">
+    <title>Prison Escape</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="game-container"></div>
+
+    <div id="loading-screen">
+        <h1>PRISON ESCAPE</h1>
+        <p>Preparing the environment...</p>
+    </div>
+
+    <div id="game-ui">
+        <div id="top-bar">
+            <div class="game-title">PRISON ESCAPE</div>
+            <div id="status">PROTOTYPE 01</div>
+        </div>
+
+        <div id="controls">
+            <div id="joystick-area">
+                <div id="joystick">
+                    <div id="joystick-knob"></div>
+                </div>
+            </div>
+
+            <div id="action-buttons">
+                <button id="run-button" type="button"
+                        aria-label="Hold to run">
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                        <circle cx="31" cy="7" r="5" fill="currentColor"/>
+                        <path d="M24 15 L33 18 L39 27 L34 30 L29 23 L24 22 L19 30 L12 27 Z"
+                              fill="currentColor"/>
+                        <path d="M23 21 L30 26 L27 34 L20 42 L15 39 L21 31 L17 28 Z"
+                              fill="currentColor"/>
+                        <path d="M30 26 L37 31 L43 38 L39 42 L32 35 L25 32 Z"
+                              fill="currentColor"/>
+                        <path d="M17 27 L11 33 L5 34 L4 29 L12 25 Z"
+                              fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+</body>
+  </html>
