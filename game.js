@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { CapsuleGeometry } from "three/addons/geometries/CapsuleGeometry.js";
 
 /* =========================================
    PRISON ESCAPE - PROTOTYPE 01
