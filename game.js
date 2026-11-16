@@ -13,6 +13,11 @@
 const container = document.getElementById("game-container");
 const loading = document.getElementById("loading-screen");
 const loadingText = document.querySelector(".loading-text");
+// Always show intro when the page loads.
+if (loading) {
+    loading.style.display = "flex";
+    loading.style.opacity = "1";
+}
 
 function showError(message) {
     console.error(message);
