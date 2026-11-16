@@ -1,0 +1,207 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #171a1d;
+    font-family: Arial, sans-serif;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#game-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#game-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: #171a1d;
+    color: white;
+}
+
+#loading-screen h1 {
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+
+#loading-screen p {
+    color: #aaa;
+    font-size: 13px;
+}
+
+#game-ui {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.65),
+        transparent
+    );
+    color: white;
+}
+
+.game-title {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#status {
+    padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 5px;
+    color: #ddd;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+#controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 190px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px 25px;
+}
+
+#joystick-area {
+    position: relative;
+    z-index: 10;
+    width: 125px;
+    height: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    touch-action: none;
+}
+
+#joystick {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#joystick-knob {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(220,220,220,0.85);
+    border: 2px solid white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    pointer-events: none;
+    will-change: transform;
+}
+
+#action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+#run-button {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.7);
+    background: rgba(25,28,31,0.88);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    touch-action: none;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#run-button svg {
+    width: 43px;
+    height: 43px;
+    pointer-events: none;
+}
+
+#run-button.running {
+    background: #b66d20;
+    border-color: #ffd08a;
+    transform: scale(0.94);
+    box-shadow: 0 0 18px rgba(255,170,65,0.55);
+}
+
+@media (max-height: 450px) {
+    #controls {
+        height: 140px;
+        padding-bottom: 12px;
+    }
+
+    #joystick,
+    #joystick-area {
+        width: 90px;
+        height: 90px;
+    }
+
+    #joystick-knob {
+        width: 38px;
+        height: 38px;
+    }
+
+    #run-button {
+        width: 62px;
+        height: 62px;
+    }
+
+    #run-button svg {
+        width: 35px;
+        height: 35px;
+    }
+  }
