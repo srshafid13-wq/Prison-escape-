@@ -823,8 +823,17 @@ legs[0].rotation.x = Math.sin(animationTime) * 0.4;
     updateCamera();
     renderer.render(scene, camera);
     animate();
+   // Keep intro visible for at least 2 seconds.
+if (loading) {
+    setTimeout(() => {
+        loading.style.opacity = "0";
 
-    if (loading) loading.style.display = "none";
+        setTimeout(() => {
+            loading.style.display = "none";
+        }, 850);
+
+    }, 2000);
+}
 
     console.log("PRISON ESCAPE — BRICK 1 READY");
 
