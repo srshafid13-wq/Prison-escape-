@@ -268,7 +268,7 @@ function createLimb(parent, material, length, radius, x, y) {
 
     addPart(
         pivot,
-        new THREE.CapsuleGeometry(radius, length, 5, 12),
+        new CapsuleGeometry((radius, length, 5, 12),
         material,
         0,
         -length * 0.35,
