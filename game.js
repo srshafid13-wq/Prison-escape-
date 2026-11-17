@@ -606,24 +606,23 @@ try {
     ];
 
     prisonerPositions.forEach((position, index) => {
-        const character = createHumanoid({
-            ...prisonerDesigns[index],
-            uniform: 0xd98243,
-            pants: 0xc9763a,
-            shoes: 0x292522
-        });
-
-        character.group.position.set(position[0], 0, position[1]);
-        character.group.rotation.y = position[2];
-
-        scene.add(character.group);
-        otherPrisoners.push(character);
+    const character = createHumanoid({
+        ...prisonerDesigns[index],
+        uniform: 0xd98243,
+        pants: 0xc9763a,
+        shoes: 0x292522
     });
 
+    character.group.position.set(position[0], 0, position[1]);
+    character.group.rotation.y = position[2];
 
-==========================================
-    // EXIT GATE
-    // ==========================================
+    scene.add(character.group);
+    otherPrisoners.push(character);
+});
+
+// ==========================================
+// EXIT GATE
+// ==========================================
 
     box(9, 0.5, 0.7, 0, 6.1, 26.5, oldConcrete);
 
