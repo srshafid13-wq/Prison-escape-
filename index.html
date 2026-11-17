@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#17191b">
+    <title>Prison Escape</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <div id="loading-screen">
+        <div class="loading-title">PRISON ESCAPE</div>
+        <div class="loading-text">Preparing the environment...</div>
+    </div>
+
+    <div id="game-ui">
+        <div class="mission-label">PRISON CELL</div>
+        <div id="key-status">KEY: NOT ACQUIRED</div>
+        <div class="version-label">DEVELOPMENT BUILD</div>
+    </div>
+
+    <div id="mobile-controls">
+        <div id="joystick">
+            <div id="joystick-thumb"></div>
+        </div>
+
+        <button id="fist-button" type="button">FIST</button>
+        <button id="action-button" type="button" hidden>GRAB KEY</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
