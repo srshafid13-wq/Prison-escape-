@@ -2050,45 +2050,100 @@ try {
     // ESCAPE COMPLETION
     // ======================================
 
-    function checkEscapeCompletion() {
-        if (escaped || !exitGateOpen) return;
+    
+function checkEscapeCompletion() {
+    if (escaped || !exitGateOpen) return;
 
-        // Player must physically cross the exit.
-        if (player.position.z < 27.2) return;
+    const escapeLine = 27.2;
 
-        // All four prisoners must have been released.
-        const allPrisonersReleased = prisonerStates.every(
-            state => state.freed
-        );
+    // Check whether the player has passed through the main gate.
+    const playerEscaped = player.position.z >= escapeLine;
 
-        if (!allPrisonersReleased) return;
+    // Check all four prisoners using their actual positions.
+    const allPrisonersEscaped =
+        prisonerStates.length === 4 &&
+        prisonerStates.every((state) => {
+            if (!state.freed || !state.character || !state.character.group) {
+                return false;
+            }
 
-        // Every rescued prisoner must cross the same exit.
-        const everyoneEscaped = prisonerStates.every(
-            state => state.escaped
-        );
+            const prisonerZ = state.character.group.position.z;
 
-        if (!everyoneEscaped) return;
+            // Automatically update the escaped status.
+            if (prisonerZ >= escapeLine) {
+                state.escaped = true;
+            }
 
-        showVictory();
-    }
+            return state.escaped;
+        });
 
-    // ======================================
-    // RESIZE
-    // ======================================
+    // Everyone must be outside the prison.
+    if (!playerEscaped || !allPrisonersEscaped) return;
 
-    window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+    // Prevent the victory screen from appearing more than once.
+    escaped = true;
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(
-            Math.min(window.devicePixelRatio || 1, 1.5)
-        );
+    // Create the victory screen.
+    const victory = document.createElement("div");
+    victory.id = "victory-screen";
 
-        resizeConfetti();
+    Object.assign(victory.style, {
+        position: "fixed",
+        inset: "0",
+        zIndex: "99999",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "rgba(0, 0, 0, 0.88)",
+        color: "#ffffff",
+        textAlign: "center",
+        padding: "24px",
+        fontFamily: "Arial, sans-serif"
     });
 
+    const title = document.createElement("h1");
+    title.textContent = "ESCAPE SUCCESSFULLY!";
+    Object.assign(title.style, {
+        color: "#f5b942",
+        fontSize: "clamp(28px, 7vw, 48px)",
+        marginBottom: "18px"
+    });
+
+    const message = document.createElement("p");
+    message.textContent = "NOW WE ALL ARE FREE.";
+    Object.assign(message.style, {
+        fontSize: "clamp(18px, 4vw, 25px)",
+        marginBottom: "35px"
+    });
+
+    const playAgain = document.createElement("button");
+    playAgain.textContent = "▶ PLAY AGAIN";
+
+    Object.assign(playAgain.style, {
+        padding: "16px 32px",
+        border: "none",
+        borderRadius: "10px",
+        background: "#d4a017",
+        color: "#17120a",
+        fontSize: "18px",
+        fontWeight: "bold",
+        cursor: "pointer"
+    });
+
+    playAgain.addEventListener("click", () => {
+        window.location.reload();
+    });
+
+    victory.appendChild(title);
+    victory.appendChild(message);
+    victory.appendChild(playAgain);
+
+    document.body.appendChild(victory);
+
+    console.log("PRISON ESCAPE: ALL FIVE CHARACTERS ESCAPED!");
+       }
+   
     // ======================================
     // RESET INPUT WHEN APP LOSES FOCUS
     // ======================================
