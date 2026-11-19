@@ -1295,45 +1295,62 @@ try {
             return;
         }
 
-        // Stage 3: follow behind the player.
-        if (state.followStage === "follow") {
-            const row = Math.floor(state.index / 2);
-            const side = state.index % 2 === 0 ? -1 : 1;
+        
+// Stage 3: follow behind the player and make sure
+// every released prisoner passes through the exit.
 
-            const behind = 1.6 + row * 1.0;
-            const lateral = side * 0.85;
+if (state.followStage === "follow") {
+    const row = Math.floor(state.index / 2);
+    const side = state.index % 2 === 0 ? -1 : 1;
 
-            const targetX =
-                player.position.x +
-                Math.sin(player.rotation.y) * behind +
-                Math.cos(player.rotation.y) * lateral;
+    const behind = 1.6 + row * 1.0;
+    const lateral = side * 0.85;
 
-            const targetZ =
-                player.position.z +
-                Math.cos(player.rotation.y) * behind -
-                Math.sin(player.rotation.y) * lateral;
+    let targetX =
+        player.position.x +
+        Math.sin(player.rotation.y) * behind +
+        Math.cos(player.rotation.y) * lateral;
 
-            const distance = Math.hypot(
-                targetX - group.position.x,
-                targetZ - group.position.z
-            );
+    let targetZ =
+        player.position.z +
+        Math.cos(player.rotation.y) * behind -
+        Math.sin(player.rotation.y) * lateral;
 
-            if (distance > 0.9) {
-                moveFollowerToward(
-                    state, targetX, targetZ, delta, 2.4
-                );
-            } else {
-                stopCharacter(state.character);
-                group.rotation.y = player.rotation.y;
-            }
+    const escapeLine = 27.2;
 
-            if (exitGateOpen && group.position.z > 27.2) {
-                state.escaped = true;
-                stopCharacter(state.character);
-            }
-        }
+    // Once the player escapes, bring every follower
+    // completely through the main prison gate.
+    if (exitGateOpen && player.position.z >= escapeLine) {
+        targetX = THREE.MathUtils.clamp(
+            targetX, -3.2, 3.2
+        );
+
+        targetZ = Math.max(
+            targetZ, escapeLine + 0.5
+        );
     }
 
+    const distance = Math.hypot(
+        targetX - group.position.x,
+        targetZ - group.position.z
+    );
+
+    if (distance > 0.12) {
+        moveFollowerToward(
+            state, targetX, targetZ, delta, 2.4
+        );
+    } else {
+        stopCharacter(state.character);
+        group.rotation.y = player.rotation.y;
+    }
+
+    // Register this prisoner as escaped.
+    if (exitGateOpen && group.position.z >= escapeLine) {
+        state.escaped = true;
+        stopCharacter(state.character);
+    }
+    }
+       
     // ======================================
     // UPDATE ALL FOUR PRISONERS
     // ======================================
