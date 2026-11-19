@@ -2176,12 +2176,62 @@ function checkEscapeCompletion() {
         }
     }
 
-    window.addEventListener("blur", resetControls);
 
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) resetControls();
-    });
+    // ======================================
+    // ESCAPE COMPLETION
+    // ======================================
 
+    function checkEscapeCompletion() {
+        // Do nothing if the game has already ended
+        // or the main prison gate is still closed.
+        if (escaped || !exitGateOpen) return;
+
+        const escapeLine = 27.2;
+
+        // Check whether the player has escaped.
+        const playerEscaped =
+            player.position.z >= escapeLine;
+
+        // Check whether all four prisoners have escaped.
+        const allPrisonersEscaped =
+            prisonerStates.length === 4 &&
+            prisonerStates.every((state) => {
+                if (
+                    !state.freed ||
+                    !state.character ||
+                    !state.character.group
+                ) {
+                    return false;
+                }
+
+                const prisonerZ =
+                    state.character.group.position.z;
+
+                // Mark the prisoner as escaped
+                // only after passing through the main gate.
+                if (prisonerZ >= escapeLine) {
+                    state.escaped = true;
+                }
+
+                return state.escaped;
+            });
+
+        // Show victory only when the player
+        // and all four freed prisoners are outside.
+        if (!playerEscaped || !allPrisonersEscaped) {
+            return;
+        }
+
+        console.log(
+            "PRISON ESCAPE: ALL FIVE CHARACTERS ESCAPED!"
+        );
+
+        // Display the existing victory screen.
+        // This includes the victory message,
+        // confetti and Play Again button.
+        showVictory();
+    }
+       
     // ======================================
     // MAIN GAME LOOP
     // ======================================
