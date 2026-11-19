@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #17191b;
+    font-family: Arial, sans-serif;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#game-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+/* LOADING */
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: #17191b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    transition: opacity .55s ease, visibility .55s ease;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-title {
+    color: #f5f5f5;
+    font-size: 43px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.loading-text {
+    color: #a5a5a5;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* GAME UI */
+
+#game-ui {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.mission-label {
+    position: absolute;
+    top: 18px;
+    left: 16px;
+    padding: 11px 15px;
+    background: rgba(12,13,14,.78);
+    border-left: 3px solid #d99a35;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* MOBILE CONTROLS */
+
+#mobile-controls {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#joystick {
+    position: absolute;
+    left: 25px;
+    bottom: 30px;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    background: rgba(20,20,20,.48);
+    border: 2px solid rgba(255,255,255,.4);
+    pointer-events: auto;
+    touch-action: none;
+}
+
+#joystick-thumb {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: rgba(230,230,230,.88);
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,.4);
+    pointer-events: none;
+}
+
+#fist-button {
+    position: absolute;
+    right: 25px;
+    top: 73%;
+    width: 78px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.8);
+    background: rgba(135,43,31,.92);
+    box-shadow: 0 4px 12px rgba(0,0,0,.45);
+    pointer-events: auto;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#fist-button svg {
+    width: 39px;
+    height: 39px;
+    fill: none;
+    stroke: white;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
+#fist-button:active {
+    background: #a85b27;
+    transform: scale(.92);
+}
+
+#action-button {
+    position: absolute;
+    right: 18px;
+    bottom: 125px;
+    min-width: 112px;
+    height: 48px;
+    padding: 0 16px;
+    border: 2px solid #f3c46c;
+    border-radius: 12px;
+    background: rgba(25,20,15,.94);
+    color: #ffd27a;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+#action-button:active {
+    background: #604323;
+    transform: scale(.96);
+}
+
+#action-button[hidden] {
+    display: none;
+}
+
+/* VICTORY SCREEN */
+
+#victory-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px;
+    overflow: hidden;
+    background: rgba(8,10,12,.88);
+    color: white;
+    text-align: center;
+    pointer-events: auto;
+}
+
+#victory-screen.show {
+    display: flex;
+}
+
+#confetti-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.victory-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+#victory-title {
+    color: #f3c46c;
+    font-size: clamp(29px, 7vw, 48px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 3px 18px rgba(243,196,108,.35);
+}
+
+#victory-subtitle {
+    color: white;
+    font-size: clamp(18px, 4vw, 25px);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#play-again-button {
+    min-width: 205px;
+    padding: 17px 28px;
+    border: 2px solid #ffe09a;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#f5c542,#d18b19);
+    color: #21180b;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    box-shadow: 0 6px 22px rgba(0,0,0,.4);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#play-again-button:active {
+    transform: scale(.95);
+}
+
+@media (max-width: 600px) {
+    .loading-title {
+        font-size: 29px;
+        letter-spacing: 4px;
+    }
+
+    .loading-text {
+        font-size: 14px;
+    }
+
+    #joystick {
+        width: 105px;
+        height: 105px;
+        left: 20px;
+        bottom: 25px;
+    }
+
+    #fist-button {
+        right: 22px;
+        width: 72px;
+        height: 72px;
+    }
+
+    #fist-button svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    #action-button {
+        right: 15px;
+        bottom: 115px;
+    }
+}
